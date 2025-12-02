@@ -14,7 +14,7 @@ public class Seed
     {
         if (await context.Users.AnyAsync()) return;
 
-        var memberData = await File.ReadAllTextAsync("Data/SeedData/SeedUsers.json");
+        var memberData = await File.ReadAllTextAsync("Data/UserSeedData.json");
         var members = JsonSerializer.Deserialize<List<SeedUserDto>>(memberData);
 
         if (members == null)
@@ -23,10 +23,12 @@ public class Seed
             return;
         }
 
-        var hmac = new HMACSHA512();
+        
 
         foreach (var member in members)
         {
+            var hmac = new HMACSHA512();
+            
             var user = new AppUser
             {
                 Id = member.Id,
