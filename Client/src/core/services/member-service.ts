@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AccountService } from './account-service';
+import { Member } from '../../types/member';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,17 @@ export class MemberService {
   private baseUrl = environment.apiUrl;
 
   getMembers() {
-    return this.http.get(this.baseUrl + 'members', this.getHttpOptions());
+    return this.http.get<Member[]>(
+      this.baseUrl + 'members',
+      this.getHttpOptions()
+    );
   }
 
   getMember(id: string) {
-    return this.http.get(this.baseUrl + 'members/' + id, this.getHttpOptions());
+    return this.http.get<Member>(
+      this.baseUrl + 'members/' + id,
+      this.getHttpOptions()
+    );
   }
 
   private getHttpOptions() {
